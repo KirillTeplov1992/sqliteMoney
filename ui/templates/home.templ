@@ -1,0 +1,27 @@
+package templates
+
+import (
+	"fmt"
+	"sqliteMoney/internal/account/models"
+)
+
+templ Home(balance *models.TotalBalance, accounts []*models.AccountData){
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Счет</th>
+                    <th>Баланс</th>
+                </tr>
+            </thead>
+            <tbody>
+            for _, acc := range accounts{
+                <tr>
+                    {{ link := fmt.Sprintf("/account?id=%d", acc.ID) }}
+                    <td><a href ={ link }>{ acc.Name }</a></td>
+                    <td>{ acc.Amount } руб</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    <h1>Суммарный баланс { balance.Balance } руб.</h1>
+}

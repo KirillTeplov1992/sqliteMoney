@@ -1,0 +1,111 @@
+package templates
+
+import (
+    account "sqliteMoney/internal/account/models"
+	category "sqliteMoney/internal/category/models"
+	"sqliteMoney/internal/transaction/models"
+	"fmt"
+)
+
+templ GetTransaction(accList []*account.Account,
+                        catList []*category.Category,
+                        transaction *models.GottenTransaction){
+    {{ link := fmt.Sprintf("/change_transaction?id=%d", transaction.ID) }}
+    <form
+        class="form"
+        id="transaction_form"
+        action={ link }
+        method="post"
+    >
+        <label for="account">Счёт:</label>
+        <br>
+        <select class="select" id="account" name="account">
+            for _, acc := range accList{
+                if acc.ID == transaction.AccountId{
+                    <option value={ acc.ID } selected>{ acc.Name }</option>
+                } else {
+                    <option value={ acc.ID }>{ acc.Name }</option>
+                }
+                
+            }
+        </select>
+        <br>
+        <label for="amount">Сумма:</label>
+        <br>
+        <input
+            class="amount-box"
+            id="amount"
+            name="amount"
+            type="number"
+            step="0.01"
+            value={ transaction.Amount }
+            style="text-align: right;"
+        >
+        <select
+            class="select"
+            id="type_of_category"
+            name="type_of_category">
+                if transaction.TypeOfCategry == "Расход"{
+                    <option value="Расход" selected>Расход</option>
+                    <option value="Доход">Доход</option>
+                    <option value="Перевод">Перевод</option>
+                }
+                if transaction.TypeOfCategry == "Доход"{
+                    <option value="Доход" selected>Доход</option>
+                    <option value="Расход">Расход</option>
+                    <option value="Перевод">Перевод</option>
+                }
+                
+        </select>
+        <br>
+        <label for="date">Дата:</label>
+        <br>
+        <input
+            class="date-box"
+            type="date"
+            id="date"
+            name="date"
+            value={ transaction.Date.Format("2006-01-02") }
+        >
+        <br>
+        <label for="category">Категория:</label>
+        <br>
+            <select class="select" id="category" name="category">
+                for _, cat := range catList{
+                    if cat.ID == transaction.CategoryID{
+                        <option value={ cat.ID } selected>{ cat.Name }</option>
+                    } else {
+                        <option value={ cat.ID }>{ cat.Name }</option>
+                    }                    
+                }
+            </select>
+        <br>
+        <label for="comment"> Комментарий:</label>
+        <br>
+        <textarea
+            class="comment"
+            id="comment"
+            name="comment"
+            placeholder="Введите комментарий к транзакции...">
+        </textarea>
+        <br>
+        <button
+            class="button"
+            id="add"
+            type="submit"
+            name="action"
+            value="add">
+                Добавить
+        </button>
+        <button
+            class="button"
+            id="add+"
+            type="submit"
+            name="action"
+            value="add+">
+                Добавить+
+        </button>
+    </form>
+    <!-- Подключаем JS -->
+    <script src="/static/js/change_transaction_page.js"></script>
+}

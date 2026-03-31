@@ -1,0 +1,104 @@
+package templates
+
+import (
+	reports "sqliteMoney/internal/reports/models"
+	account "sqliteMoney/internal/account/models"
+    "fmt"
+)
+
+templ Reports(balance *account.TotalBalance,
+            rep []*reports.Report,
+            frep []*reports.FinalReport,
+            cirep, cerep []*reports.CategoryReport){
+/*--------------Функция--------------------------------------------------*/
+    <div class="tabs">
+        <div class="tabs__navigation">
+            <button type="button" class="tabs__title active" data-tab="1">
+                Tab 1
+            </button>
+            <button type="button" class="tabs__title" data-tab="2">
+                Tab 2
+            </button>
+            <button type="button" class="tabs__title" data-tab="3">
+                Tab 3
+            </button>
+        </div>
+        <div class="tabs__body">
+            <div class="tabs__content active" id="tab-1">
+                <h1>{ fmt.Sprintf("Суммарный баланс: %.2f р.", balance.Balance) }</h1>
+            </div>
+            <div class="tabs__content" id="tab-2">
+                <table class="content-table">
+                <caption>Отчет по месяцам</caption>
+                    <thead>
+                        <tr>
+                            <th>Месяц</th>
+                            <th>Доход</th>
+                            <th>Расход</th>
+                            <th>Прибыль</th>
+                        </tr>
+                    </thead>
+                    for _, row := range rep{
+                        <tr>
+                            <td>{ fmt.Sprintf("%s", row.Month) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Incom) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Expense) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Profit) }</td>
+                        </tr>
+                    }
+                </table>
+                <h1>Финальный отчет</h1>
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>Данные</th>
+                            <th>Сумма</th>
+                            <th>Процент</th>
+                        </tr>
+                    </thead>
+                    for _, row := range frep{
+                        <tr>
+                            <td>{ fmt.Sprintf("%s", row.Type) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Amount) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Persent) }</td>
+                        </tr>
+                    }   
+                </table>
+            </div>
+            <div class="tabs__content" id="tab-3">
+                <h1>Доходы по категориям</h1>
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>Категория</th>
+                            <th>Сумма</th>
+                        </tr>
+                    </thead>
+                    for _, row := range cirep{
+                        <tr>
+                            <td>{ fmt.Sprintf("%s", row.Type) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Amount) }</td>
+                        </tr>
+                    }
+                </table>
+                <h1>Расходы по категориям</h1>
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>Категория</th>
+                            <th>Сумма</th>
+                        </tr>
+                    </thead>
+                    for _, row := range cerep{
+                        <tr>
+                            <td>{ fmt.Sprintf("%s", row.Type) }</td>
+                            <td>{ fmt.Sprintf("%.2f", row.Amount) }</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Подключаем JS -->
+    <script src="/static/js/reports.js"></script>
+}

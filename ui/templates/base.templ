@@ -1,0 +1,50 @@
+package templates
+
+templ header(title string){
+    <head>
+        <title>{ title }</title>
+        <meta charset='utf-8'>
+        <!-- Ссылка на CSS стили -->
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link href="https://fonts.google.com/share?selection.family=Roboto:ital,wght@0,100..900;1,100..900">
+        <script src="/assets/js/htmx.min.js"></script>
+    </head>
+}
+
+templ footer(){
+    <footer>Сайт создан на <strong>Golang</strong></footer>
+}
+
+templ Layout(contents templ.Component, title string){
+    @header(title)
+    <body>
+        <div class="bar bar--bg">
+            <div class="bar__content u-centered">
+                Домашняя бухгалтерия
+                <input type="checkbox" id="inpNavToggle">
+                <label class="bar__nav-toggle" for="inpNavToggle">
+                    <i class="material-icons">menu</i>
+                </label>
+                <nav class="nav">
+                    <a class="nav__link" href="/">Home</a>
+                    <a class="nav__link" href="/create_account">Добавить счет</a>
+                    <a class="nav__link" href="/create_category">Добавить категорию</a>
+                    <a class="nav__link" href="/create_transaction">Добавить транзакцию</a>
+                    <a class="nav__link" href="/reports">Отчеты</a>         
+                </nav>
+            </div>
+        </div>
+        <div class="border"></div>
+        /*<div>Домашняя бухгалтерия:            
+        <a href="/">Home</a>
+        <a href="/create_account">Добавить счет</a>
+        <a href="/create_category">Добавить категорию</a>
+        <a href="/create_transaction">Добавить транзакцию</a>
+        <a href="/reports">Отчеты</a>
+        </div>*/
+        <main>
+            @contents
+        </main>
+        @footer()
+    </body>
+}
