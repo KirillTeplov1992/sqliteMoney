@@ -21,7 +21,7 @@ const typeOfCategory = document.getElementById('type_of_category');
 const category = document.getElementById('category')
 
 // Добавляем обработчик события 'change'
-typeOfCategory.addEventListener('change', function(){
+typeOfCategory.addEventListener('input', function(){
     // Получаем тип категории
     const tCategory = typeOfCategory.value;
 
@@ -39,10 +39,10 @@ typeOfCategory.addEventListener('change', function(){
 });
 
 function get_incoms() {
-    fetch('http://127.0.0.1:5050/get_incoms')
+    fetch('http://192.168.0.104:5050/get_incoms')
         .then(response =>{
             if (!response.ok) {
-                throw new Error('Ошибка сети: ${response.statusText}');
+                throw new Error(`Ошибка сети: ${response.statusText}`);
             }
             return response.json();
         })
@@ -55,13 +55,16 @@ function get_incoms() {
                 category.add(option);
             });
         })
+        .catch(error => {
+            console.error('Ошибка:', error)
+        });
 }
 
 function get_accounts() {
-    fetch('http://127.0.0.1:5050/get_accounts')
+    fetch('http://192.168.0.104:5050/get_accounts')
         .then(response =>{
             if (!response.ok) {
-                throw new Error('Ошибка сети: ${response.statusText}');
+                throw new Error(`Ошибка сети: ${response.statusText}`);
             }
             return response.json();
         })
@@ -74,13 +77,16 @@ function get_accounts() {
                 category.add(option);
             });
         })
+        .catch(error => {
+            console.error('Ошибка:', error)
+        });
 }
 
 function get_expepenses() {
-    fetch('http://127.0.0.1:5050/get_expenses')
+    fetch('http://192.168.0.104:5050/get_expenses')
         .then(response =>{
             if (!response.ok) {
-                throw new Error('Ошибка сети: ${response.statusText}');
+                throw new Error(`Ошибка сети: ${response.statusText}`);
             }
             return response.json();
         })
@@ -93,5 +99,8 @@ function get_expepenses() {
                 category.add(option);
             });
         })
+        .catch(error => {
+            console.error('Ошибка:', error)
+        });
 }
     

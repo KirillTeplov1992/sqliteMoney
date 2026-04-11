@@ -68,9 +68,12 @@ func (h *handler) account (w http.ResponseWriter, r *http.Request){
 }
 
 func (h *handler) getAccounts(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
 	accList := h.repository.AccountRep.GetAccountsList()	
 
-	w.Header().Set("account list", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 
 	json.NewEncoder(w).Encode(accList)
 }
