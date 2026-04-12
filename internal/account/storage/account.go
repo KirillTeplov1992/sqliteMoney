@@ -142,7 +142,8 @@ func (ar *AccountRepository) GetAccountData (acc_id int) []*models.AccountTransa
     	T.date,
     	C.name,
     	T.amount,
-		T.comment
+		T.comment,
+		C.type_of_category
 	FROM
 		transactions T
 	INNER JOIN
@@ -167,7 +168,8 @@ func (ar *AccountRepository) GetAccountData (acc_id int) []*models.AccountTransa
 						&transaction.Date,
 						&transaction.Category,
 						&transaction.Amount,
-						&transaction.Comment)
+						&transaction.Comment,
+						&transaction.TypeOfCategory)
 		if err != nil{
 			panic(err)
 		}

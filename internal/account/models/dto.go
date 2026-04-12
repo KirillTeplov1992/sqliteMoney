@@ -18,4 +18,5 @@ type AccountTransaction struct{
 	Category string
 	Amount float32
 	Comment string
+	TypeOfCategory string
 }

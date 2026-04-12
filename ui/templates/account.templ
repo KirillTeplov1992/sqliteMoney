@@ -18,7 +18,8 @@ templ AccountPage(transactions []*models.AccountTransaction){
     </thead>
     <tbody>
         for _, tr := range transactions{
-            <tr>
+            if tr.TypeOfCategory == "Доход"{
+            <tr class="income">
                 {{ link := fmt.Sprintf("/transaction?id=%d", tr.ID) }}
                 <td><a href = { link }>{ tr.ID }</a></td>
                 <td>{ tr.Date.Format("02 January 2006") }</td>
@@ -26,6 +27,16 @@ templ AccountPage(transactions []*models.AccountTransaction){
                 <td>{ tr.Amount }</td>
                 <td>{ tr.Comment }</td>
             </tr>
+            } else {
+            <tr class="expense">
+                {{ link := fmt.Sprintf("/transaction?id=%d", tr.ID) }}
+                <td><a href = { link }>{ tr.ID }</a></td>
+                <td>{ tr.Date.Format("02 January 2006") }</td>
+                <td>{ tr.Category }</td>
+                <td>{ tr.Amount }</td>
+                <td>{ tr.Comment }</td>
+            </tr>
+            }
         }
     </tbody>
     </table>

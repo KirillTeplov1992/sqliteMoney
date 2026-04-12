@@ -240,6 +240,14 @@ footer {
     border-color: #009578;
 }
 
+.income{
+    color: green
+}
+
+.expense{
+    color: red;
+}
+
 
 
 
