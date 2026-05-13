@@ -18,3 +18,8 @@ type CategoryReport struct{
 	Type string
 	Amount float64
 }
+
+type RestMoney struct{
+	Date string `json:"date"`
+	Amount float64 `json:"amount"`
+}

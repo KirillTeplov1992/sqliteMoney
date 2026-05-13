@@ -276,3 +276,66 @@ func (r *ReportRepository) GetExpenses(beginDate, endDate string) []*models.Cate
 
 	return creps
 }
+
+func (r *ReportRepository) GetPlotInfomation() []*models.RestMoney{
+	stmt := `
+	WITH income as (SELECT
+		T.date,
+		sum(T.amount) as Income
+	FROM
+		transactions AS T
+	INNER JOIN
+		categories AS C ON T.category_id = C.id
+	WHERE
+		C.type_of_category == "Доход"
+	GROUP BY
+		T.date),
+	expense as (SELECT
+		T.date,
+		sum(T.amount) as Expense
+	FROM
+		transactions AS T
+	INNER JOIN
+		categories AS C ON T.category_id = C.id
+	WHERE
+		C.type_of_category == "Расход"
+	GROUP BY
+		T.date),	
+	total_table as (select
+		coalesce(I.date, E.date) as date,
+		sum(coalesce(I.Income, 0) - coalesce (E.Expense, 0)) over(order by coalesce(I.date, E.date)) as Profit
+	FROM
+		income as I
+	full OUTER JOIN expense as E
+	on I.date = E.date)
+
+	SELECT
+	*
+	FROM
+		total_table as TT
+	WHERE date >= "2025-10-01"
+	order by
+		TT.date`
+
+	res, err := r.store.DB.Query(stmt)
+	if err != nil{
+		panic(err)
+	}
+
+	var points []*models.RestMoney
+
+	for res.Next(){
+		point := &models.RestMoney{}
+
+		err = res.Scan(&point.Date,
+						&point.Amount)
+		
+		if err != nil{
+			panic(err)
+		}
+
+		points = append(points, point)
+	}
+
+	return points
+}

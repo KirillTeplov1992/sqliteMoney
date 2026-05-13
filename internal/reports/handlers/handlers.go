@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 	"sqliteMoney/internal/handlers"
 	"sqliteMoney/internal/store"
@@ -9,6 +10,7 @@ import (
 
 const (
 	reportsURL = "/reports"
+	pointsURL = "/points"
 )
 
 
@@ -24,6 +26,7 @@ func NewHandler(repository store.Store) handlers.Handler{
 
 func (h *handler) Register(router *http.ServeMux){
 	router.HandleFunc(reportsURL, h.getReports)
+	router.HandleFunc(pointsURL, h.getRestOfTheMoney)
 }
 
 func (h *handler) getReports(w http.ResponseWriter, r *http.Request){
@@ -41,4 +44,15 @@ func (h *handler) getReports(w http.ResponseWriter, r *http.Request){
 	if err != nil{
 		panic(err)
 	}
+}
+
+func (h *handler) getRestOfTheMoney(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
+	listOfThePoints := h.repository.ReportsRep.GetPlotInfomation()
+
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(listOfThePoints)
 }

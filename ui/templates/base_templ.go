@@ -42,7 +42,7 @@ func header(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta charset=\"utf-8\"><!-- Ссылка на CSS стили --><link rel=\"stylesheet\" href=\"/static/css/main.css\"><link href=\"https://fonts.google.com/share?selection.family=Roboto:ital,wght@0,100..900;1,100..900\"><script src=\"/assets/js/htmx.min.js\"></script></head>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta charset=\"utf-8\"><!-- Ссылка на CSS стили --><link rel=\"stylesheet\" href=\"/static/css/main.css\"><link href=\"https://fonts.google.com/share?selection.family=Roboto:ital,wght@0,100..900;1,100..900\"></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

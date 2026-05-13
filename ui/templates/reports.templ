@@ -26,6 +26,10 @@ templ Reports(balance *account.TotalBalance,
         <div class="tabs__body">
             <div class="tabs__content active" id="tab-1">
                 <h1>{ fmt.Sprintf("Суммарный баланс: %.2f р.", balance.Balance) }</h1>
+
+                <div class="plot">
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
             <div class="tabs__content" id="tab-2">
                 <table class="content-table">
@@ -100,5 +104,6 @@ templ Reports(balance *account.TotalBalance,
         </div>
     </div>
     <!-- Подключаем JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/static/js/reports.js"></script>
 }
