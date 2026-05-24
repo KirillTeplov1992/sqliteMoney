@@ -1,0 +1,16 @@
+package templates
+
+import (
+    "fmt"
+    "sqliteMoney/internal/account/models"
+)
+
+templ PlotReport(balance *models.TotalBalance){
+    <h1>{ fmt.Sprintf("Суммарный баланс: %.2f р.", balance.Balance) }</h1>
+    <div class="plot">
+        <canvas id="myChart"></canvas>
+    </div>
+    <!-- Подключаем JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/plot.js"></script>
+}

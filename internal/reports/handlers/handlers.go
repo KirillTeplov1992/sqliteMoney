@@ -39,7 +39,10 @@ func (h *handler) getReports(w http.ResponseWriter, r *http.Request){
 	title := "Отчеты"
 
 	//c это сокращенно от contents
-	c := templates.Reports(balance, rep, freps, cirep, cerep)
+	Plot := templates.PlotReport(balance)
+	MainTable := templates.MainTable(rep, freps)
+	CategoryReport := templates.CategoryReport(cirep, cerep)
+	c := templates.Reports(Plot, MainTable, CategoryReport)
 	err := templates.Layout(c, title).Render(r.Context(), w)
 	if err != nil{
 		panic(err)

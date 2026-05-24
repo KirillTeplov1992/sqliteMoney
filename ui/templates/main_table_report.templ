@@ -1,0 +1,45 @@
+package templates
+
+import (
+    "fmt"
+    "sqliteMoney/internal/reports/models"
+)
+
+templ MainTable(rep []*models.Report, frep []*models.FinalReport){
+    <table class="content-table">
+        <caption>Отчет по месяцам</caption>
+        <thead>
+            <tr>
+                <th>Месяц</th>
+                <th>Доход</th>
+                <th>Расход</th>
+                <th>Прибыль</th>
+            </tr>
+        </thead>
+        for _, row := range rep{
+            <tr>
+                <td>{ fmt.Sprintf("%s", row.Month) }</td>
+                <td>{ fmt.Sprintf("%.2f", row.Incom) }</td>
+                <td>{ fmt.Sprintf("%.2f", row.Expense) }</td>
+                <td>{ fmt.Sprintf("%.2f", row.Profit) }</td>
+            </tr>
+         }
+    </table>
+    <h1>Финальный отчет</h1>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>Данные</th>
+                <th>Сумма</th>
+                <th>Процент</th>
+            </tr>
+        </thead>
+        for _, row := range frep{
+            <tr>
+                <td>{ fmt.Sprintf("%s", row.Type) }</td>
+                <td>{ fmt.Sprintf("%.2f", row.Amount) }</td>
+                <td>{ fmt.Sprintf("%.2f", row.Persent) }</td>
+            </tr>
+        }   
+    </table>
+}
