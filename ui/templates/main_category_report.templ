@@ -1,0 +1,18 @@
+package templates
+
+import (
+    "sqliteMoney/internal/reports/models"
+    "fmt"
+)
+
+templ MainCategoryReport(catRep []models.TemplCategoryReport){
+    for _, rep := range catRep{
+        <details>
+            <summary><h1>{ rep.Month }</h1></summary>
+            <h2>{ fmt.Sprintf("Доходы за %s", rep.Month) }</h2>
+            @rep.Incoms
+            <h2>{ fmt.Sprintf("Расходы за %s", rep.Month) }</h2>
+            @rep.Expenses
+        </details>
+    }
+}

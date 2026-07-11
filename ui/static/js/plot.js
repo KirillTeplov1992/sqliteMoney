@@ -16,7 +16,7 @@ fetch('http://192.168.0.104:5050/points')
 	        data: {
 		        labels: date,
 		        datasets: [{
-			        label: 'График',
+			        label: 'Общий баланс',
 			        data: amount,
 			        borderWidth: 1
 		        }]
