@@ -1,6 +1,8 @@
 package models
 
-import "github.com/a-h/templ"
+import (
+	"github.com/a-h/templ"
+)
 
 type Report struct{
 	Month string
@@ -22,7 +24,7 @@ type CategoryReport struct{
 }
 
 type RestMoney struct{
-	Date string `json:"date"`
+	Date string`json:"date"`
 	Amount float64 `json:"amount"`
 }
 

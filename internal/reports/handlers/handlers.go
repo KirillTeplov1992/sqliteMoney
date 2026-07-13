@@ -36,6 +36,7 @@ func (h *handler) getReports(w http.ResponseWriter, r *http.Request){
 	freps := h.repository.ReportsRep.GetFinalReport("2025-10-01", "2026-09-30")
 
 	DatesArray := []models.Dates{
+		models.Dates{Month: "Весь период", Begin: "2025-10-01", End: "2026-09-30"},
 		models.Dates{Month: "Октябрь 2025", Begin: "2025-10-01", End: "2025-10-31"},
 		models.Dates{Month: "Ноябрь 2025", Begin: "2025-11-01", End: "2025-11-30"},
 		models.Dates{Month: "Декабрь 2025", Begin: "2025-12-01", End: "2025-12-31"},
